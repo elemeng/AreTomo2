@@ -1,6 +1,7 @@
 #include "CMrcUtilInc.h"
 #include "../Util/CUtilInc.h"
 #include <Mrcfile/CMrcFileInc.h>
+#include "../CInput.h"
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <memory.h>
