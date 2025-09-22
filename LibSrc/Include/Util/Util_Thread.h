@@ -5,6 +5,7 @@
 //
 //=============================================================================
 #pragma once
+#include <Util/Util_Types.h>
 #include <pthread.h>
 
 class Util_Thread
