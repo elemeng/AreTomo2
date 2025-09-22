@@ -90,9 +90,10 @@ float CProjAlignMain::DoIt
 {	m_pTomoStack = pTomoStack;
 	m_pAlignParam = pAlignParam;
 	m_iNumProjs = m_pTomoStack->m_aiStkSize[2];
-	m_iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(0.0f);
 	//-----------------------------------------------------
 	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	m_iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 	cudaSetDevice(pInput->m_piGpuIDs[m_iNthGpu]);
 	//-------------------------------------------
 	bool bCopy = true;

@@ -89,7 +89,10 @@ float CTiltOffsetMain::mCalcAveragedCC(float fTiltOffset)
 	//----------------------------------------
 	int iCount = 0;
 	float fCCSum = 0.0f;
-	int iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(0.0f);
+	// Use user-specified reference tilt angle from CInput
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 	for(int i=0; i<m_pAlignParam->m_iNumFrames; i++)
 	{	if(i == iZeroTilt) continue;
 		int iRefTilt = (i < iZeroTilt) ? i+1 : i-1;

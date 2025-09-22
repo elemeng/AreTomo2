@@ -54,7 +54,10 @@ void CCropVolume::mCalcOutCenter(void)
 	float* pfCentXs = new float[iNumPatches * 2];
 	float* pfCentYs = pfCentXs + iNumPatches;
 	//---------------------------------------
-	int iZeroTilt = m_pFullParam->GetFrameIdxFromTilt(0.0f);
+	// Use user-specified reference tilt angle from CInput for FIB lamella compatibility
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = m_pFullParam->GetFrameIdxFromTilt(fRefTilt);
 	m_pLocalParam->GetCoordXYs(iZeroTilt, pfCentXs, pfCentYs);
 	//-----------------------
 	float fMinX = pfCentXs[0], fMaxX = pfCentXs[0];

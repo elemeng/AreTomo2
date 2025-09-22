@@ -45,7 +45,10 @@ void CFitPatchShifts::Setup
 	m_pFullParam = pFullParam;
 	m_iNumPatches = iNumPatches;
 	m_iNumTilts = m_pFullParam->m_iNumFrames;
-	m_iZeroTilt = m_pFullParam->GetFrameIdxFromTilt(0.0f);
+	// Use user-specified reference tilt angle from CInput
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	m_iZeroTilt = m_pFullParam->GetFrameIdxFromTilt(fRefTilt);
 	//----------------------------------------------------
 	int iSize = m_iNumPatches * m_iNumTilts;
 	m_pfMeasuredUs = new float[iSize * 3];

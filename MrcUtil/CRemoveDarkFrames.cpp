@@ -11,14 +11,15 @@ using namespace MrcUtil;
 static CTomoStack* s_pTomoStack = 0L;
 static float s_fThreshold = 0.7f;
 
-static int sGetZeroTiltIdx(float* pfTilts, int iNumTilts)
+static int sGetZeroTiltIdx(float* pfTilts, int iNumTilts, float fTargetTilt = 0.0f)
 {
 	int iMin = 0;
-	double dMin = fabs(pfTilts[0]);
+	double dMin = fabs(pfTilts[0] - fTargetTilt);
 	//-----------------
 	for(int i=1; i<iNumTilts; i++)
-	{	if(fabs(pfTilts[i]) >= dMin) continue;
-		dMin = fabs(pfTilts[i]);
+	{	double dDiff = fabs(pfTilts[i] - fTargetTilt);
+		if(dDiff >= dMin) continue;
+		dMin = dDiff;
 		iMin = i;
 	}
 	return iMin;
@@ -61,7 +62,10 @@ void CRemoveDarkFrames::DoIt
 	}
 	printf("\n");
 	//-----------------
-	int iZeroTilt = sGetZeroTiltIdx(s_pTomoStack->m_pfTilts, iAllFrms);
+	// Get user-specified reference tilt angle from CInput
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = sGetZeroTiltIdx(s_pTomoStack->m_pfTilts, iAllFrms, fRefTilt);
 	float fTol = s_fThreshold * (float)fabs(pfMeans[iZeroTilt]) 
 	   / (pfStds[iZeroTilt] + 0.000001f);
 	//-----------------

@@ -21,7 +21,11 @@ void CFindObjectCenter::DoIt
 	int iNumGpus,
 	float* pfShift
 )
-{	int iZeroTilt = pAlignParam->GetFrameIdxFromTilt(0.0f);
+{
+	// Use user-specified reference tilt angle from CInput for FIB lamella compatibility
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 	s_pfProj = pTomoStack->GetFrame(iZeroTilt);
 	s_piProjSize = pTomoStack->m_aiStkSize;
 	s_aiPatchSize[0] = s_piProjSize[0] * 3 / 4;

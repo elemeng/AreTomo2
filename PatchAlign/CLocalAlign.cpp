@@ -35,7 +35,9 @@ void CLocalAlign::Setup
 	m_pProjAlignMain->Setup(pTomoStack, pAlignParam, 
 	   pInput->m_afBFactor[1], iNthGpu);
 	//----------------------------------
-	m_iZeroTilt = pAlignParam->GetFrameIdxFromTilt(0.0f);
+	// Use user-specified reference tilt angle from CInput
+	float fRefTilt = pInput->m_fRefTilt;
+	m_iZeroTilt = pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 }
 
 void CLocalAlign::DoIt

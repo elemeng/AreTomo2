@@ -34,7 +34,9 @@ void CLinearNorm::DoIt
 	{	pfMean[i] = mCalcMean(i);	
 	}
 	//-------------------------------
-	int iZeroTilt = pAlignParam->GetFrameIdxFromTilt(0.0f);
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 	m_fRefMean = pfMean[iZeroTilt];
 	if(m_fRefMean > 1000.0f) m_fRefMean = 1000.0f;
 	for(int i=0; i<m_iNumFrames; i++)

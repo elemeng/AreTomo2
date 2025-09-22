@@ -57,6 +57,7 @@ CInput::CInput(void)
 	strcpy(m_acDarkTolTag, "-DarkTol");
 	strcpy(m_acBFactorTag, "-Bft");
 	strcpy(m_acIntpCorTag, "-IntpCor");
+	strcpy(m_acRefTiltTag, "-RefTilt");
 	//---------------------------------
 	m_afTiltRange[0] = 0.0f;
 	m_afTiltRange[1] = 0.0f;
@@ -86,6 +87,7 @@ CInput::CInput(void)
 	m_afBFactor[0] = 500.0f;
 	m_afBFactor[1] = 500.0f;
 	m_iIntpCor = 1;
+	m_fRefTilt = 0.0f;
 	memset(m_afExtPhase, 0, sizeof(m_afExtPhase));
 	memset(m_aiNumPatches, 0, sizeof(m_aiNumPatches));
 	memset(m_aiCropVol, 0, sizeof(m_aiCropVol));
@@ -260,6 +262,13 @@ void CInput::ShowTags(void)
 	printf("   1. When enabled, the correction for information loss due\n"
 	   "      to linear interpolation will be perform. The default\n"
 	   "      setting value 1 enables the correction.\n\n");
+	//------------------------------------
+	printf("%-10s\n", m_acRefTiltTag);
+	printf("   1. Reference tilt angle for alignment in degrees.\n");
+	printf("   2. The tilt image closest to this angle will be used\n");
+	printf("      as the reference for alignment operations.\n");
+	printf("   3. Useful when your tilt series are not started from 0 degree, such as FIB lamella, might be from -12, 12, -15, 15 ect.\n");
+	printf("   3. Default is 0.0 degrees (zero-tilt image).\n\n");
 }
 
 void CInput::Parse(int argc, char* argv[])
@@ -421,6 +430,10 @@ void CInput::Parse(int argc, char* argv[])
 	aParseArgs.FindVals(m_acIntpCorTag, aiRange);
 	if(aiRange[1] > 1) aiRange[1] = 1;
 	aParseArgs.GetVals(aiRange, &m_iIntpCor);
+	//---------------------------------------
+	aParseArgs.FindVals(m_acRefTiltTag, aiRange);
+	if(aiRange[1] > 1) aiRange[1] = 1;
+	aParseArgs.GetVals(aiRange, &m_fRefTilt);
 	//---------------------------------------
 	if(strlen(m_acAlnFile) != 0) m_iAlign = 0;
 	mPrint();	

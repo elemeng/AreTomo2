@@ -69,7 +69,10 @@ void CTiltAxisMain::Setup
 float CTiltAxisMain::Measure(float fTiltAxis)
 {
 	float fCCSum = 0.0f;
-	int iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(0.0f);
+	// Use user-specified reference tilt angle from CInput
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 	for(int i=iZeroTilt+1; i<m_pTomoStack->m_aiStkSize[2]; i++)
 	{	float fCC = mCorrelate(i, -1, fTiltAxis);
 		fCCSum += fCC;

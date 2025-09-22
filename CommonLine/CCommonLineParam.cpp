@@ -51,7 +51,10 @@ void CCommonLineParam::Setup
 	m_pTomoStack = pTomoStack;
 	m_pAlignParam = pAlignParam;
 	//--------------------------
-	int iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(0.0f);
+	// Use user-specified reference tilt angle from CInput for FIB lamella compatibility
+	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	int iZeroTilt = m_pAlignParam->GetFrameIdxFromTilt(fRefTilt);
 	m_fTiltAxis = m_pAlignParam->GetTiltAxis(iZeroTilt);	
 	//--------------------------------------------------
 	m_pfRotAngles = new float[m_iNumLines];

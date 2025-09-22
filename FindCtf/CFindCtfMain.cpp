@@ -106,9 +106,11 @@ void CFindCtfMain::mGenSpectrums(void)
 
 void CFindCtfMain::mDoZeroTilt(void)
 {
-	m_iRefTilt = m_pAlignParam->GetFrameIdxFromTilt(0.0f);
-	//----------------------------------------------------
+	// Use user-specified reference tilt angle from CInput for FIB lamella compatibility
 	CInput* pInput = CInput::GetInstance();
+	float fRefTilt = pInput->m_fRefTilt;
+	m_iRefTilt = m_pAlignParam->GetFrameIdxFromTilt(fRefTilt);
+	//----------------------------------------------------
         float fPhaseRange = fmaxf(pInput->m_afExtPhase[1], 0.0f);
 	m_pFindCtf2D->SetPhase(pInput->m_afExtPhase[0], fPhaseRange);
 	//-----------------------------------------------------------

@@ -47,6 +47,7 @@ public:
 	float m_fDarkTol;
 	float m_afBFactor[2];
 	int m_iIntpCor;
+	float m_fRefTilt;
 	//-------------
         char m_acInMrcTag[32];
         char m_acOutMrcTag[32];
@@ -82,6 +83,7 @@ public:
 	char m_acDarkTolTag[32];
 	char m_acBFactorTag[32];
 	char m_acIntpCorTag[32];
+	char m_acRefTiltTag[32];
 private:
         CInput(void);
         void mPrint(void);
