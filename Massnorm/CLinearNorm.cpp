@@ -1,4 +1,5 @@
 #include "CMassNormInc.h"
+#include "../CInput.h"
 #include <memory.h>
 #include <math.h>
 #include <stdio.h>
