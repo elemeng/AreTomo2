@@ -1,6 +1,7 @@
 #pragma once
 #include <Mrcfile/CMrcFileInc.h>
 #include <cufft.h>
+#include <Util/Util_Types.h>
 #include <pthread.h>
 
 namespace Util
